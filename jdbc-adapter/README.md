@@ -8,17 +8,18 @@ The JDBC adapter for virtual schemas allows you to connect to JDBC data sources 
 
 The following dialects are supported:
 
+1. [DB2](doc/sql_dialects/db2.md)
 1. [EXASOL](doc/sql_dialects/exasol.md)
+1. Generic
+1. [GitHub](doc/sql_dialects/github.md)
 1. [Hive](doc/sql_dialects/hive.md)
 1. [Impala](doc/sql_dialects/impala.md)
-1. [DB2](doc/sql_dialects/db2.md)
 1. [Oracle](doc/sql_dialects/oracle.md)
-1. [Teradata](doc/sql_dialects/teradata.md)
+1. [PostgresSQL](doc/sql_dialects/postgresql.md)
 1. [Redshift](doc/sql_dialects/redshift.md)
 1. [SQL Server](doc/sql_dialects/sql_server.md)
 1. [Sybase ASE](doc/sql_dialects/sybase.md)
-1. [PostgresSQL](doc/sql_dialects/postgresql.md)
-1. Generic
+1. [Teradata](doc/sql_dialects/teradata.md)
 
 This list will be continuously extended based on the feedback from our users.
 
