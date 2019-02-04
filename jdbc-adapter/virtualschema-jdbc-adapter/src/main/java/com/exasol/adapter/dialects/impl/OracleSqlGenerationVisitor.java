@@ -519,9 +519,15 @@ public class OracleSqlGenerationVisitor extends SqlGenerationVisitor {
             typeName.equals("CLOB") ||
             typeName.equals("NCLOB")) {
             projString = "TO_CHAR(" + projString + ")";
-        } else if (typeName.equals("NUMBER") &&
-                   column.getMetadata().getType().getExaDataType() == DataType.ExaDataType.VARCHAR) {
-            projString = "TO_CHAR(" + projString + ")";
+        } else if (typeName.equals("NUMBER")) {
+            int prec = 36;
+            int scale = 20;
+            final DataType colType = column.getMetadata().getType();
+            if (colType.getExaDataType() == DataType.ExaDataType.DECIMAL) {
+                prec = colType.getPrecision();
+                scale = colType.getScale();
+            }
+            projString = "CAST(" + projString + " AS DECIMAL(" + prec + "," + scale + " ))";
         } else if (typeName.equals("ROWID") ||
                    typeName.equals("UROWID")) {
             projString = "ROWIDTOCHAR(" + projString + ")";
@@ -537,7 +543,7 @@ public class OracleSqlGenerationVisitor extends SqlGenerationVisitor {
         if (node.getType() == SqlNodeType.COLUMN) {
             SqlColumn column = (SqlColumn)node;
             String typeName = ColumnAdapterNotes.deserialize(column.getMetadata().getAdapterNotes(), column.getMetadata().getName()).getTypeName();
-            if (typeName.equals("NUMBER") && column.getMetadata().getType().getExaDataType() == DataType.ExaDataType.VARCHAR) {
+            if (typeName.equals("NUMBER")) {
                 return true;
             } else {
                 return TYPE_NAMES_REQUIRING_CAST.contains(typeName);

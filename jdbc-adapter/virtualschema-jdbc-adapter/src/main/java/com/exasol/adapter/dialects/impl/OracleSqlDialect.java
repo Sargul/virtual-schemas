@@ -25,6 +25,7 @@ import com.exasol.adapter.sql.ScalarFunction;
  * Work in Progress
  */
 public class OracleSqlDialect extends AbstractSqlDialect {
+    private static final int DEFAULT_SCALE_FOR_NUMBER = 20;
     private final boolean castAggFuncToFloat = true;
     private final boolean castScalarFuncToFloat = true;
 
@@ -358,13 +359,13 @@ public class OracleSqlDialect extends AbstractSqlDialect {
                 // without scale and precision. Convert to VARCHAR.
                 // See http://docs.oracle.com/cd/B28359_01/server.111/b28318/datatype.htm#i16209
                 // and https://docs.oracle.com/cd/E19501-01/819-3659/gcmaz/
-                colType = DataType.createVarChar(DataType.maxExasolVarcharSize, DataType.ExaCharset.UTF8);
+                colType = DataType.createDecimal(DataType.maxExasolDecimalPrecision, DEFAULT_SCALE_FOR_NUMBER);
                 break;
             }
             if (decimalPrec <= DataType.maxExasolDecimalPrecision) {
                 colType = DataType.createDecimal(decimalPrec, decimalScale);
             } else {
-                colType = DataType.createVarChar(DataType.maxExasolVarcharSize, DataType.ExaCharset.UTF8);
+                colType = DataType.createDecimal(DataType.maxExasolDecimalPrecision, decimalScale);
             }
             break;
         case Types.OTHER:
