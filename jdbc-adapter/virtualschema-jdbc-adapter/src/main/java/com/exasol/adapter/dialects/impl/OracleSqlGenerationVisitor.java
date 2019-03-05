@@ -512,8 +512,7 @@ public class OracleSqlGenerationVisitor extends SqlGenerationVisitor {
             return projString;
         }
         String typeName = ColumnAdapterNotes.deserialize(column.getMetadata().getAdapterNotes(), column.getMetadata().getName()).getTypeName();
-        if (typeName.startsWith("TIMESTAMP") ||
-            typeName.startsWith("INTERVAL") ||
+        if (typeName.startsWith("INTERVAL") ||
             typeName.equals("BINARY_FLOAT") ||
             typeName.equals("BINARY_DOUBLE") ||
             typeName.equals("CLOB") ||
@@ -537,7 +536,7 @@ public class OracleSqlGenerationVisitor extends SqlGenerationVisitor {
         return projString;
     }
 
-    private static final List<String> TYPE_NAMES_REQUIRING_CAST = ImmutableList.of("TIMESTAMP","INTERVAL","BINARY_FLOAT","BINARY_DOUBLE","CLOB","NCLOB","ROWID", "UROWID", "BLOB");
+    private static final List<String> TYPE_NAMES_REQUIRING_CAST = ImmutableList.of("INTERVAL","BINARY_FLOAT","BINARY_DOUBLE","CLOB","NCLOB","ROWID", "UROWID", "BLOB");
 
     private boolean nodeRequiresCast(SqlNode node) throws AdapterException {
         if (node.getType() == SqlNodeType.COLUMN) {
